@@ -1,26 +1,26 @@
-var fs = require('fs')
-  , flow = require('xml-flow')
-  , inFile = fs.createReadStream('./H2-dftre765.txt.xml')
-  , xmlStream = flow(inFile)
-;
+
 
 var express = require('express');
+var fs = require('fs'),
+xml2js = require('xml2js');
+
 var app = express();
 
-var fs = require('fs')
-  , flow = require('xml-flow')
-  , inFile = fs.createReadStream('./H2-dftre765.txt.xml')
-  , xmlStream = flow(inFile)
-;
+var parser = new xml2js.Parser();
 
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(request, response) {
-  xmlStream.on('tag:Cadeias', function(cadeias) {
-    response.send(cadeias);
+  
+  fs.readFile(__dirname + '/parse.xml', function(err, data) {
+    parser.parseString(data, function (err, result) {
+        response.send(result.Cadeias);
+    });
   });
+  
+  
 });
 
 app.listen(app.get('port'), function() {
