@@ -1,0 +1,48 @@
+{% extends "index.njk" %}
+
+{% block conteudo %}
+    <div class="ui two column grid container">
+        <div class="row">
+            <div class="column">
+                <div class="ui breadcrumb">
+                    <div class="section">Pasta</div>
+                    <i class="right angle icon divider"></i>
+                    <div class="active section">Arquivo</div>
+                </div>
+            </div>            
+        </div>
+        <div class="row">
+            <div class="column">
+            <h5 class="ui top attached header">
+                Texto
+            </h5>
+                <div class="ui attached segment">
+                    {{ texto }}
+                </div>
+
+            </div>
+            
+            <div class="column">
+                <div class="ui top attached tabular menu">
+                    <a class="active item" data-tab="cadeias">
+                        Cadeias
+                    </a>
+                    <a class="item" data-tab="sentencas">
+                        Sentenças
+                    </a>
+                </div>
+                <div class="ui bottom attached active tab segment" data-tab="cadeias">
+                    {% include "./listas/cadeias.njk" %}
+                </div>
+                <div class="ui bottom attached tab segment" data-tab="sentencas">
+                    {% include "./listas/sentencas.njk" %}
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+<!-- controle da página -->
+<script src="corref.js"></script>
+{% endblock %}
