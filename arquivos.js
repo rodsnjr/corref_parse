@@ -7,7 +7,9 @@ var _ = require('lodash');
 app.get('/correlacoes', function(request, response) {
 
     var _folders = [{ name : 'Rodney', files : [
-      { name : '1.xls', url : '#' },  { name : '2.xls', url : '#' }
+      { name : '1.xls', url : '#' },  
+      { name : '2.xls', url : '#' },
+      { name : '3.xls', url : '#' }
     ]}];
 
     response.render('correlacoes.njk', { folders : _folders });
@@ -33,5 +35,16 @@ app.get('/correferencias', function(request,response){
     });
 
     response.render('correferencias.njk', { folders : _folders });
+
+});
+
+app.get('/correferencias/:pasta/:arquivo', function(request, response){
+    var arquivo = './correferencias/' + 
+        req.pasta + '/' + req.arquivo;
+
+    var xml = parser.file(arquivo, ['texto', 'cadeias', 'sentencas'],
+        function(value){
+            response.render('correferencia.njk', valores);
+    });
 
 });
