@@ -1,0 +1,17 @@
+<div class="ui list">
+    {% for folder in folders %}
+    <div class="item">
+        <i class="folder icon"></i>
+        <div class="content">
+            {{ folder.name }}
+        </div>
+        <div class="ui list">
+        {% for file in folder.files %}
+        <a class="item" href="arquivo.url">
+            {{ file.name }}
+        </a>
+        {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>

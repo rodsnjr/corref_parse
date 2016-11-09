@@ -1,7 +1,6 @@
 var express = require('express');
-var parser = require('./parser');
 var nunjucks = require('nunjucks');
-
+var arquivos = require('./arquivos');
 var app = express();
 
 // Templating
@@ -14,32 +13,10 @@ app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
 
+app.use('/arquivos', arquivos);
+
 app.get('/', function(request, response) {
-    
-  
-  parser.file('./correferencias/H2-dftre765.txt.xml', 
-        ['texto', 'cadeias', 'sentencas'], function(valores){
-          
-          //response.send(valores);
-          response.render('corref.njk', valores);
-
-  });
-
-
+  response.render('layout.njk');
 });
 
-app.get('/cadeias', function(request, response) {
-    parser.file('./correferencias/H2-dftre765.txt.xml', 'cadeias', function(valores){
-      response.send(valores);
-    })
-});
-
-app.get('/sentenca', function(request,response){
-  parser.file('./correferencias/H2-dftre765.txt.xml', 'sentencas', function(valores){
-      response.send(valores);
-  })
-});
-
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
-});
+app.listen(app.get('port'));
