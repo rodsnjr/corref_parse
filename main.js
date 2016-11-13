@@ -1,6 +1,7 @@
 var express = require('express');
 var nunjucks = require('nunjucks');
-var arquivos = require('./arquivos');
+var arquivos = require('./arquivos');	
+var parser = require('./parser');
 var app = express();
 
 // Templating
@@ -16,7 +17,11 @@ app.use(express.static(__dirname + '/public'));
 app.use('/arquivos', arquivos);
 
 app.get('/', function(request, response) {
-  response.render('layout.njk');
+  
+parser.file('1.xml', 'cadeias', function(valores){
+        response.send(valores);
+});
+
 });
 
 app.listen(app.get('port'), function() {

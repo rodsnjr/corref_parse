@@ -1,6 +1,5 @@
 var parser = require('../parser');
 
-parser.file('./correferencias/H2-dftre765.txt.xml', 
-      ['texto', 'cadeias', 'sentencas'], function(valores){
+parser.file('1.xml', 'cadeias', function(valores){
         console.log(valores);
 });
