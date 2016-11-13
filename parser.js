@@ -58,7 +58,7 @@ var read_dir = function (dir, parametro, finish) {
 
   _.forEach(arquivos, function (value) {
 
-    var arquivo = fs.readFileSync(dir + "/" + value, 'utf8');
+    var arquivo = fs.readFileSync(dir + "/" + value, 'ISO-8859-1');
 
     parsed.push(parse_xml(arquivo, parametro));
 
@@ -70,7 +70,7 @@ var read_dir = function (dir, parametro, finish) {
 }
 
 var read_file = function (file, parametro, finish) {
-  var arquivo = fs.readFileSync(file, 'utf8');
+  var arquivo = fs.readFileSync(file, 'ISO-8859-1');
 
   finish(parse_xml(arquivo, parametro));
 

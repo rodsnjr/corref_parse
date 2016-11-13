@@ -17,7 +17,7 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', function(request, response) {
     
   
-  parser.file('./correferencias/H2-dftre765.txt.xml', 
+  parser.file('./correferencias/Rodney/1.xml', 
         ['texto', 'cadeias', 'sentencas'], function(valores){
           
           //response.send(valores);
