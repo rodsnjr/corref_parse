@@ -4,6 +4,8 @@ var parser = require('./parser');
 var fs = require('fs');
 var _ = require('lodash');
 
+var app = express.Router();
+
 app.get('/correlacoes', function(request, response) {
 
     var _folders = [{ name : 'Rodney', files : [
@@ -18,33 +20,39 @@ app.get('/correlacoes', function(request, response) {
 app.get('/correferencias', function(request,response){
     
     _folders = [];
-    var pastas = fs.readdirSync('./correlacoes');
+    var pastas = fs.readdirSync('./correferencias');
 
     _.forEach(pastas, function(pasta){
         var _pasta = { name : pasta, files : [] };
-        var arquivos = fs.readdirSync('./correlacoes' + pasta);
+        var arquivos = fs.readdirSync('./correferencias/' + pasta);
 
         _.forEach(arquivos, function(arquivo){
-            var _url = '/arquivo/correferencias/' 
-                + pasta + '/' + arquivo;
+            var _url = '/arquivos/correferencias/' + pasta + '/' + arquivo;
 
             _pasta.files.push({ name : arquivo, url : _url });
         });
 
-        exit.push(_pasta);
+        _folders.push(_pasta);
     });
 
     response.render('correferencias.njk', { folders : _folders });
 
 });
 
-app.get('/correferencias/:pasta/:arquivo', function(request, response){
-    var arquivo = './correferencias/' + 
-        req.pasta + '/' + req.arquivo;
+app.get('/correferencias/:folder/:file', function(request, response){
 
+    var arquivo = './correferencias/' + request.params.folder + '/' + request.params.file;
+    
     var xml = parser.file(arquivo, ['texto', 'cadeias', 'sentencas'],
         function(value){
-            response.render('correferencia.njk', valores);
+            var saida = { folder : request.params.folder , file : request.params.file };
+            saida.sentencas = value.sentencas;
+            saida.texto = value.texto;
+            saida.cadeias = value.cadeias;
+            
+            response.render('correferencia.njk', saida);
     });
 
 });
+
+module.exports = app;

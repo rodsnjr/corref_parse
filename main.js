@@ -13,6 +13,8 @@ app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
 
+app.use('/arquivos', arquivos);
+
 app.get('/', function(request, response) {
   response.render('layout.njk');
 });

@@ -7,7 +7,7 @@
         </div>
         <div class="ui list">
         {% for file in folder.files %}
-        <a class="item" href="arquivo.url">
+        <a class="item" href="{{ file.url }}">
             {{ file.name }}
         </a>
         {% endfor %}
