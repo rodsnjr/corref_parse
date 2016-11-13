@@ -1,0 +1,109 @@
+{% extends "layout.njk" %}
+
+{% block conteudo %}
+<div class="ui segment two column grid container">
+  <div class="column">
+    <table class="ui table">
+      <thead>
+        <tr>
+          <th>Sentença</th>
+          <th>C1</th>
+          <th>C2</th>
+          <th>S</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for kappa in kappas %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ kappa }}</td>
+            <td>0</td>
+            <td>0,0</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="column">
+    <table class="ui table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Legenda</th>
+          <th>Valor/Formula</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td>Ci</td>
+          <td>Soma de cada Classe</td>
+          <td>0,00</td>
+          <td>0,00</td>
+        </tr>
+
+        <tr>
+          <td>Si</td>
+          <td>Consenso entre os anotadores para cada relação</td>
+          <td>S1=(1/(C*(C-1))) * (C1*(C1-1) + (C2*(C2-1))</td>
+          <td>0,00</td>
+        </tr>
+
+        <tr>
+          <td>Z</td>
+          <td>Somatório de Si</td>
+          <td>0,00</td>
+          <td>0,00</td>
+        </tr>
+
+        <tr>
+          <td>P(A)</td>
+          <td>Consenso Total</td>
+          <td>P(A)=Z/N</td>
+          <td>0,00</td>
+        </tr>
+
+        <tr>
+          <td>NC</td>
+          <td>Número total de anotações</td>
+          <td>NC=(N*C)</td>
+          <td>0,00</td>
+        </tr>
+
+        <tr>
+          <td>P(E)</td>
+          <td>Consenso esperado por chance de anotação</td>
+          <td>P(E)=((C1/NC)ˆ2) + ((C2/NC)ˆ2)</td>
+          <td>0,00</td>
+        </tr>
+
+        <tr>
+          <td>N</td>
+          <td>Tamanho da amostra</td>
+          <td>0,00</td>
+          <td>0,00</td>
+        </tr>
+
+        <tr>
+          <td>C</td>
+          <td>Quantidade de anotadores</td>
+          <td>0,00</td>
+          <td>0,00</td>
+        </tr>
+
+        <tr>
+          <td>Kappa</td>
+          <td>Coeficiente de consenso</td>
+          <td>Kappa=(P(A)-P(E))/(1-P(E))</td>
+          <td>0,00</td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+{% endblock %}

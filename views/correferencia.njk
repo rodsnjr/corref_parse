@@ -26,6 +26,9 @@
                 <div class="ui top attached tabular menu">
                     <a class="active item" data-tab="cadeias">
                         Cadeias
+                    </a>                    
+                    <a class="item" data-tab="mencoes">
+                        Menções Únicas
                     </a>
                     <a class="item" data-tab="sentencas">
                         Sentenças
@@ -33,6 +36,9 @@
                 </div>
                 <div class="ui bottom attached active tab segment" data-tab="cadeias">
                     {% include "./listas/cadeias.njk" %}
+                </div>
+                <div class="ui bottom attached tab segment" data-tab="mencoes">
+                    {% include "./listas/mencoes.njk" %}
                 </div>
                 <div class="ui bottom attached tab segment" data-tab="sentencas">
                     {% include "./listas/sentencas.njk" %}

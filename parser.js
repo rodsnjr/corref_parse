@@ -8,6 +8,30 @@ var get_cadeias = function (result) {
     _.forEach(result.ConteudoXML.Cadeias[0], function (value, key) {
       var cadeia = [];
       _.forEach(value[0].sn, function (value1, key1) {
+        cadeia.push(value1.$);
+      });
+      saida.push({ id: key, content: cadeia });
+      
+    });
+    return saida;
+}
+
+var get_mencoes = function(result){
+    //var saida = result.ConteudoXML.Mencoes_Unicas[0].sn;
+    var saida=[];
+    _.forEach(result.ConteudoXML.Mencoes_Unicas[0].sn, function (value, key) {
+      
+      saida.push(value.$);
+      
+    });
+    return saida;
+}
+
+var get_kappas = function(result){
+      var saida = [];
+    _.forEach(result.ConteudoXML.Cadeias[0], function (value, key) {
+      var cadeia = [];
+      _.forEach(value[0].sn, function (value1, key1) {
         cadeia.push(value1.$.id);
       });
       saida.push({ id: key, content: cadeia });
@@ -27,6 +51,12 @@ var get_sentencas = function(result){
 var get_conteudo = function (result, conteudo) {
     if (conteudo == 'cadeias') {
       return get_cadeias(result);
+    }
+    else if (conteudo == 'mencoes'){
+      return get_mencoes(result);
+    }
+    else if (conteudo == 'kappa'){
+      return get_kappas(result);
     }
     else if (conteudo == 'sentencas') {
       return get_sentencas(result);

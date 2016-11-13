@@ -43,13 +43,13 @@ app.get('/correferencias/:folder/:file', function(request, response){
 
     var arquivo = './correferencias/' + request.params.folder + '/' + request.params.file;
     
-    var xml = parser.file(arquivo, ['texto', 'cadeias', 'sentencas'],
+    var xml = parser.file(arquivo, ['texto', 'cadeias', 'mencoes', 'sentencas'],
         function(value){
             var saida = { folder : request.params.folder , file : request.params.file };
             saida.sentencas = value.sentencas;
             saida.texto = value.texto;
             saida.cadeias = value.cadeias;
-            
+            saida.mencoes = value.mencoes;
             response.render('correferencia.njk', saida);
     });
 
