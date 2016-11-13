@@ -4,6 +4,8 @@ var parser = require('./parser');
 var fs = require('fs');
 var _ = require('lodash');
 
+var app = express.Router();
+
 app.get('/correlacoes', function(request, response) {
 
     var _folders = [{ name : 'Rodney', files : [
@@ -48,3 +50,5 @@ app.get('/correferencias/:pasta/:arquivo', function(request, response){
     });
 
 });
+
+module.exports = app;

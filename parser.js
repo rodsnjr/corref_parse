@@ -8,9 +8,10 @@ var get_cadeias = function (result) {
     _.forEach(result.ConteudoXML.Cadeias[0], function (value, key) {
       var cadeia = [];
       _.forEach(value[0].sn, function (value1, key1) {
-        cadeia.push(value1.$);
+        cadeia.push(value1.$.id);
       });
       saida.push({ id: key, content: cadeia });
+      
     });
     return saida;
 }
