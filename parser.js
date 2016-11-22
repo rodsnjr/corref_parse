@@ -7,10 +7,12 @@ var get_cadeias = function (result) {
     var saida = [];
     _.forEach(result.ConteudoXML.Cadeias[0], function (value, key) {
       var cadeia = [];
+      var _categoria = undefined;
       _.forEach(value[0].sn, function (value1, key1) {
         cadeia.push(value1.$);
+        _categoria= _categoria || value1.$.Categoria;
       });
-      saida.push({ id: key, content: cadeia });
+      saida.push({ id: key, content: cadeia , categoria : _categoria});
       
     });
     return saida;

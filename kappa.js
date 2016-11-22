@@ -8,18 +8,20 @@ var comparaCadeia = function (acadeia, bcadeias){
 	
 	var maior = 0;
 	var current = 0;
+	var _discord = 0;
 
 	_.forEach(bcadeias, function(value){
 
 		current = _.intersection(acadeia.content, value.content);
-			
+		
 		if(current.length > maior){
 			maior = current.length;
+			_discord = bcadeias.length > value.length ? (bcadeias.length - maior) : (current.length - maior);	
 		}
 		
 	});
 
-	return maior;
+	return { concord : maior, discord : _discord} ;
 }
 
 var comparaArquivos = function(cadeiasArquivo1, cadeiasArquivo2){

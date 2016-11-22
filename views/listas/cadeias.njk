@@ -3,13 +3,13 @@
     <div class="item">
         <i class="folder icon"></i>
         <div class="content">
-            {{ cadeia.id }}
+            {{ cadeia.id }} / {{ cadeia.categoria }}
             <div class="ui list">
                 {% for sentenca in cadeia.content %}
-                <div class="item">
+                <div class="item highlight">
                     <i class="file text icon"></i>
                     <div class="content">
-                        {{ sentenca.sintagma }}
+                        {{ sentenca.nucleo }}
                     </div>
                 </div>
                 {% endfor %}

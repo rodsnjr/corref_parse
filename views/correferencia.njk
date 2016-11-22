@@ -9,6 +9,12 @@
                     <i class="right angle icon divider"></i>
                     <div class="active section">{{ file }}</div>
                 </div>
+            </div>
+            <div class="column">
+                <div class="ui fluid icon input">
+                    <input type="text" name="keyword" placeholder="Filtrar">
+                    <i class="circular search link icon"></i>
+                </div>
             </div>            
         </div>
         <div class="row">
@@ -16,7 +22,7 @@
             <h5 class="ui top attached header">
                 Texto
             </h5>
-                <div class="ui attached segment">
+                <div class="ui attached segment texto">
                     {{ texto }}
                 </div>
 
@@ -48,7 +54,8 @@
         </div>
 
     </div>
-
+<!-- highlighter -->
+<script src="/jquery.mark.min.js"></script>
 <!-- controle da página -->
 <script src="/corref.js"></script>
 {% endblock %}

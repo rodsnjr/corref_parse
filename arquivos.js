@@ -4,39 +4,43 @@ var parser = require('./parser');
 var fs = require('fs');
 var _ = require('lodash');
 
+var read_dir = function(dir, exit_url){
+
+    _folders = [];
+
+    var pastas = fs.readdirSync(dir);
+
+    _.forEach(pastas, function(pasta){
+        var _pasta = { name : pasta, files : [] };
+        if (fs.lstatSync(dir + pasta).isDirectory()){
+            var arquivos = fs.readdirSync(dir + pasta);
+            _.forEach(arquivos, function(arquivo){
+                var _url = exit_url + pasta + '/' + arquivo;
+                _pasta.files.push({ name : arquivo, url : _url });
+            });
+            _folders.push(_pasta);
+
+        }else{
+            _folders.files = _folders.files || []; 
+            var _url = exit_url + pasta;
+            _folders.files.push({ name : pasta, url : _url });
+        }
+        
+    });
+
+    return _folders;
+}
+
 var app = express.Router();
 
 app.get('/correlacoes', function(request, response) {
-
-    var _folders = [{ name : 'Rodney', files : [
-      { name : '1.xls', url : '#' },  
-      { name : '2.xls', url : '#' },
-      { name : '3.xls', url : '#' }
-    ]}];
-
+    var _folders = read_dir('./correlacoes/', '/arquivos/correlacoes/');
     response.render('correlacoes.njk', { folders : _folders });
 });
 
 app.get('/correferencias', function(request,response){
-    
-    _folders = [];
-    var pastas = fs.readdirSync('./correferencias');
-
-    _.forEach(pastas, function(pasta){
-        var _pasta = { name : pasta, files : [] };
-        var arquivos = fs.readdirSync('./correferencias/' + pasta);
-
-        _.forEach(arquivos, function(arquivo){
-            var _url = '/arquivos/correferencias/' + pasta + '/' + arquivo;
-
-            _pasta.files.push({ name : arquivo, url : _url });
-        });
-
-        _folders.push(_pasta);
-    });
-
+    folders = read_dir('./correferencias/', '/arquivos/correferencias/');
     response.render('correferencias.njk', { folders : _folders });
-
 });
 
 app.get('/correferencias/:folder/:file', function(request, response){
