@@ -27,7 +27,7 @@ var get_mencoes = function(result){
     return saida;
 }
 
-var get_kappas = function(result){
+var get_ids = function(result){
       var saida = [];
     _.forEach(result.ConteudoXML.Cadeias[0], function (value, key) {
       var cadeia = [];
@@ -47,7 +47,7 @@ var get_sentencas = function(result){
   });
   return saida;
 }
-
+/* implementar pra  ["cadeia_ids", "cadeia_sintagmas"] */
 var get_conteudo = function (result, conteudo) {
     if (conteudo == 'cadeias') {
       return get_cadeias(result);
@@ -55,8 +55,8 @@ var get_conteudo = function (result, conteudo) {
     else if (conteudo == 'mencoes'){
       return get_mencoes(result);
     }
-    else if (conteudo == 'kappa'){
-      return get_kappas(result);
+    else if (conteudo == 'ids'){
+      return get_ids(result);
     }
     else if (conteudo == 'sentencas') {
       return get_sentencas(result);
@@ -88,12 +88,20 @@ var read_dir = function (dir, parametro, finish) {
   var parsed = [];
 
   _.forEach(arquivos, function (value) {
+    
+    if (parametro.name){
 
-    var arquivo = fs.readFileSync(dir + "/" + value, 'utf8');
-
-    parsed.push(parse_xml(arquivo, parametro));
-
-
+      if (parametro.name == arquivo){
+        var arquivo = fs.readFileSync(dir + "/" + value, 'utf8');
+        parsed.push(parse_xml(arquivo, parametro.dados));
+      }
+      
+    }
+    else{
+      var arquivo = fs.readFileSync(dir + "/" + value, 'utf8');
+      parsed.push(parse_xml(arquivo, parametro));
+    }
+    
   });
 
   finish(parsed);
