@@ -4,92 +4,28 @@
 <div class="ui container">
 
     <div class="ui top attached tabular menu">
-        <a class="active item" data-tab="correlacoes">
-            Correlações
-        </a>                    
-        <a class="item" data-tab="correferencias">
+        <a class="active item" data-tab="correferencias">
             Correferências
+        </a>
+        
+        <a class="item" data-tab="correlacoes">
+            Correlações
         </a>
     </div>
 
-    <div class="ui bottom attached active tab segment" data-tab="correlacoes">
+    <div class="ui bottom attached active tab segment" data-tab="correferencias">
         <div class="ui two column divided grid">
-
-            <div class="four wide center aligned column">
-                <h2> Arquivos </h2>
-                <div class="ui horizontal divider"></div>
-                {% include "./arquivos/pastas_correl.njk" %}
-            </div>
-
-            <div class="twelve wide centered column">
-                <h2 class="ui center aligned header">
-                    <i class="percent icon"></i>
-                    <div class="content">
-                        Concordâncias
-                        <div class="sub header">Inclui o cálculo do Kappa das concordâncias</div>
-                    </div>
-                </h2>
-            </div>
-
+            {% include "./tabs/correferencias.njk" %}
+        </div>
+    </div>
+    
+    <div class="ui bottom attached tab segment" data-tab="correlacoes">
+        <div class="ui two column divided grid">
+            {% include "./tabs/correlacoes.njk" %}
         </div>
     </div>
 
-    <div class="ui bottom attached tab segment" data-tab="correferencias">
-        <div class="ui two column divided grid">
 
-            <div class="four wide center aligned column">
-                <h2> Arquivos </h2>
-                <div class="ui horizontal divider"></div>
-                {% include "./arquivos/pastas_corref.njk" %}
-            </div>
-
-            <div class="twelve wide centered column">
-            
-                <h2 class="ui header">
-                    <i class="percent icon"></i>
-                    <div class="content">
-                        Concordâncias
-                        <div class="sub header">Inclui o cálculo do Kappa das concordâncias</div>
-                    </div>
-                </h2>
-                {% if concordancias %}
-                    <div class="ui secondary pointing menu concordancias">
-                    {% for concordancia in concordancias %}
-                        {% if loop.first %}
-                        <a class="active item" data-tab="{{ concordancia.name }}">
-                            Concordância 1
-                        </a>
-                        {% else %}
-                        <a class="item" data-tab="{{ concordancia.name }}">
-                            Concordância {{ loop.index }}
-                        </a>
-                        {% endif %}
-                    {% endfor %}
-                    </div>
-                    {% for concordancia in concordancias %}
-                        {% if loop.first %}
-                            <div id="{{ concordancia.name }}" class="ui active tab" data-tab="{{ concordancia.name }}">
-
-                            </div>
-                        {% else %}
-                            <div id="{{ concordancia.name }}" class="ui tab" data-tab="{{ concordancia.name }}">
-                                
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                {% else %}
-                    <div class="ui negative message">
-                        <div class="header">
-                            Ops!
-                        </div>
-                        <p>Ainda não há arquivos diferentes de um mesmo texto para gerar as concordâncias</p>
-                    </div>
-                {% endif %}
-            </div>
-
-        </div>
-
-    </div>
 
 </div>
 

@@ -17,7 +17,7 @@ app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
 app.use('/arquivos', arquivos.router);
-app.use('/kappas', kappas);
+app.use('/kappas', kappas.router);
 
 app.get('/', function(request, response) {
   response.render('info.njk');
@@ -27,11 +27,15 @@ app.get('/textos', function(request, response) {
   var correls = arquivos.read_dir('./correlacoes/', '/arquivos/correlacoes/');
   var correfs = arquivos.read_dir('./correferencias/', '/arquivos/correferencias/');
   var concordancias = arquivos.texts("./kappas/");
+  
+  var _kappas = kappas.kappaCorref(concordancias[0].name);
 
   template={
-    correls:correls, 
-    correfs:correfs, 
-    concordancias : concordancias
+      correls:correls, 
+      correfs:correfs, 
+      concordancias : concordancias,
+      kappa : _kappas.kappa, 
+      pares : _kappas.pares
   };
 
   response.render('textos.njk', template);

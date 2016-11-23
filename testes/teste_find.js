@@ -13,5 +13,6 @@ var par = [12,33];
 // https://lodash.com/docs/
 // http://neue.cc/reference.htm
 
+console.log(cadeias.indexOf(par));
 
 
