@@ -34,9 +34,7 @@ app.get('/correferencias/:arquivo', function(request, response){
     var concordancias = correferencias
         .concordancia(request.params.arquivo);
     
-    console.log(concordancias);
-
-    response.send(concordancias);
+    response.send(concordancias.pares);
 });
 
 module.exports = app;

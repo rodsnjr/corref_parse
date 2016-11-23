@@ -4,6 +4,14 @@ var parser = new xml2js.Parser();
 var _ = require('lodash');
 var linq = require("linq");
 
+function Cadeia(id, nucleo){
+  this.id = id; this.nucleo = nucleo;
+}
+
+Cadeia.prototype.equals = function(o){
+  return this.id == o.id;
+}
+
 var get_cadeias = function (result) {
   var saida = [];
   _.forEach(result.ConteudoXML.Cadeias[0], function (value, key) {
@@ -30,15 +38,26 @@ var get_mencoes = function (result) {
   return saida;
 }
 
-var get_ids = function (result) {
+var get_ids_cadeias = function (result) {
   var saida = [];
   _.forEach(result.ConteudoXML.Cadeias[0], function (value, key) {
+    
     var cadeia = [];
     _.forEach(value[0].sn, function (value1, key1) {
       cadeia.push(value1.$.id);
     });
-    //saida.push({ id: key, content: cadeia });
+    
     saida.push(cadeia);
+  });
+  return saida;
+}
+
+var get_ids = function (result) {
+  var saida = [];
+  _.forEach(result.ConteudoXML.Cadeias[0], function (value, key) {
+    _.forEach(value[0].sn, function (value1, key1) {
+      saida.push(value1.$.id);
+    });
   });
   return saida;
 }
@@ -48,9 +67,9 @@ var get_cadeias_ids_sintagmas = function (result) {
   _.forEach(result.ConteudoXML.Cadeias[0], function (value, key) {
     
     _.forEach(value[0].sn, function (value1, key1) {
-      cadeia.push({ id: value1.$.id, sintagma: value1.$.sintagma });
+      cadeia.push(new Cadeia(value1.$.id, value1.$.sintagma));
     });
-    //saida.push(cadeia);
+
   });
   return cadeia;
 }
@@ -71,6 +90,8 @@ var get_conteudo = function (result, conteudo) {
     return get_mencoes(result);
   } else if (conteudo == 'ids') {
     return get_ids(result);
+  } else if (conteudo == 'ids_cadeias'){
+    return get_ids_cadeias(result);
   }
   else if (conteudo == 'cadeia_ids_sintagmas') {
     return get_cadeias_ids_sintagmas(result);
