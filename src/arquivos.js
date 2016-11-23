@@ -31,8 +31,12 @@ var read_dir = function(dir, exit_url){
     return _folders;
 }
 
-var app = express.Router();
+var get_texts = function(dir){
+    return parser.even_files('./correferencias/');
+}
 
+/*
+    Rotas antigas ... tão fora agora!
 app.get('/correlacoes', function(request, response) {
     var _folders = read_dir('./correlacoes/', '/arquivos/correlacoes/');
     response.render('correlacoes.njk', { folders : _folders });
@@ -42,7 +46,9 @@ app.get('/correferencias', function(request,response){
     folders = read_dir('./correferencias/', '/arquivos/correferencias/');
     response.render('correferencias.njk', { folders : _folders });
 });
+*/
 
+var app = express.Router();
 app.get('/correferencias/:folder/:file', function(request, response){
 
     var arquivo = './correferencias/' + request.params.folder + '/' + request.params.file;
@@ -59,4 +65,4 @@ app.get('/correferencias/:folder/:file', function(request, response){
 
 });
 
-module.exports = app;
+module.exports = { router : app, read_dir : read_dir, texts : get_texts };

@@ -5,6 +5,7 @@
 var _ = require('lodash');
 var FastSet = require("collections/fast-set");
 var parser = require('./parser');
+
 /*
 
     Estruturas de dados 
@@ -29,21 +30,25 @@ function Par(sintagma1, sintagma2){
 
 function Concordancia(arquivos){
     this.arquivos = arquivos;
-    this.sintagmasEmCadeias = new FastSet();
-    this.pares = new FastSet();
+    this.sintagmasEmCadeias = new Set();
+    this.pares = new Set();
 
     
     this.gerarSintagmasEmCadeias = function(){
+        value = this.sintagmasEmCadeias;
         _.forEach(this.arquivos, function(arquivo){
-            this.sintagmasEmCadeias.addEach(arquivo.cadeias);
+            value.addEach(arquivo.cadeias);
         });
     }
 
     this.gerarPares = function(){
-        this.sintagmasEmCadeias.forEach(function(sintagma){
-            this.sintagmasEmCadeias.forEach(function(sintagma1){
+        value = this.sintagmasEmCadeias;
+        pares = this.pares;
+
+        value.forEach(function(sintagma){
+            value.forEach(function(sintagma1){
                 if (sintagma != sintagma1)
-                    this.pares.add(new Par(sintagma, sintagma1));
+                    pares.add(new Par(sintagma, sintagma1));
             });
         });
     }
@@ -70,15 +75,17 @@ function Concordancia(arquivos){
     Ler de um diretório e sub diretórios, 
     os arquivos X e gerar um objeto de concordancia para todos
 */
-var gerarConcordancias = function(nomeArquivo, diretorio){
-    var parametroBuscaDiretorio = { name : nomeArquivo, dados : ["cadeia_ids", "cadeia_sintagmas"] };
+var gerarConcordancias = function(nomeArquivo){
+    var parametroBuscaDiretorio = { name : nomeArquivo, dados : "cadeia_ids_sintagmas" };
     var arquivos = [];
+
     /* Parsear o que veio do XML em um Objeto Arquivo */
     function gerarArquivo(xmlLido){
-        return {};
+        console.log(xmlLido);
+        return new Arquivo(xmlLido);
     }
     /* Gerar a lista de Arquivos lidos */
-    parser.dir('../correferencias/', parametroBuscaDiretorio, function(arquivosLidos){
+    parser.dir('./correferencias/', parametroBuscaDiretorio, function(arquivosLidos){
         _.forEach(arquivosLidos, function(arquivoLido){
             arquivos.push(gerarArquivo(arquivoLido));
         });
@@ -86,3 +93,5 @@ var gerarConcordancias = function(nomeArquivo, diretorio){
 
     return new Concordancia(arquivos);
 }
+
+module.exports = { concordancia : gerarConcordancias };

@@ -47,16 +47,5 @@ var _kappa = function(arquivo1, arquivo2, finish){
 
 }
 
-app.get('/correferencias', function(request, response){
-	_kappa('./correferencias/Rodney/1.xml', './correferencias/Rodney/1_copy.xml', 
-		function(saida){
 
-			//console.log(saida);
-			response.render('kappa.njk', { kappas : saida });
-
-	});
-	
-});
-
-module.exports = app;
 

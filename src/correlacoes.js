@@ -37,7 +37,6 @@ function Kappa(correlacoes){
     var Kappa = 0;
 
 
-
 }
 
 function SomatorioAnotadores(correlacoes){

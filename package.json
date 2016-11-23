@@ -2,10 +2,10 @@
   "name": "corref_parse",
   "version": "0.0.1",
   "description": "a simple corref xml parser",
-  "main": "src/main.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/main.js"
+    "start": "node main.js"
   },
   "engines": {
     "node": "5.9.1"
@@ -20,7 +20,6 @@
     "mark.js": "julmot/mark.js",
     "nunjucks": "^2.5.2",
     "xml2js": "^0.4.17",
-    "linqjs": "0.0.6",
     "linq": "~3.0.5",
     "collections": "~5.0.5"
   },
