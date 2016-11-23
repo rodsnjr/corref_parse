@@ -28,8 +28,15 @@ function Kappa(correlacoes){
     var Kappa = 0;
 }
 
-app.get('/correferencias', function(request, response){
+app.get('/correferencias/:arquivo', function(request, response){
     //response.render('kappa.njk', { kappas : saida });
+
+    var concordancias = correferencias
+        .concordancia(request.params.arquivo);
+    
+    console.log(concordancias);
+
+    response.send(concordancias);
 });
 
 module.exports = app;

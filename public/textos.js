@@ -4,17 +4,18 @@ $(document).ready(function () {
 
     $('.menu.concordancias .item').tab({
         auto    : true,
-        path    : '/kappa/correferencias/'
+        path    : '/kappas/correferencias/'
         /*,
         onVisible : function(path){
             render(path);
         }
         */
     });
-
+    
+    /*
     $('.menu.concordancias .item')
         .api({
-            url : "/kappa/correferencias/{$tab}",
+            url : "/kappas/correferencias/{$tab}",
             beforeSend: function(settings) {
                 console.log('called api -' + settings);
 
@@ -25,5 +26,6 @@ $(document).ready(function () {
     function render(path){
         console.log(path);    
     }
+    */
 
 });

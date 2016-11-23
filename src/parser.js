@@ -107,11 +107,11 @@ var read_dir = function (dir, parametro, finish) {
   _.forEach(arquivos, function (pasta) {
 
     if (fs.lstatSync(dir + pasta).isDirectory()) {
-        var files = get_files(dir+pasta, parametro);
+        var files = get_files(dir + pasta, parametro);
         parsed = parsed.concat(files);
     } else {
       try {
-        parsed.push(get_file(pasta, parametro));
+        parsed.push(get_file(pasta, file, parametro));
       } catch (e){
         console.log(e);
       }      
@@ -130,16 +130,16 @@ var even_files = function(dir){
   var prop = { fileName : true, dados : 'texto' };
 
   arquivos = read_dir(dir, prop, function(textos){
-    console.log(textos);
+    
     _.forEach(textos, function(texto){
 
       var evens = linq.from(textos)
-        .where("$.texto=="+textos.texto)
+        .where(function(item){ return item.texto==texto.texto && item != texto })
         .select("$.name")
         .toArray();
       
       if (!linq.from(even).contains(evens)){
-        even.concat(evens);
+        even = even.concat(evens);
       }       
 
     });
@@ -149,12 +149,12 @@ var even_files = function(dir){
   return even;
 }
 
-var get_file = function(file, parametro){
-    var arquivo = fs.readFileSync(file, 'utf8');
+var get_file = function(file, _path, parametro){
+    var arquivo = fs.readFileSync(_path, 'utf8');
     if (parametro.fileName){
       var _file = { name : file };
-      var _xml = parse_xml(arquivo,parametro);
-      var exit = _.merge(file, _xml);
+      var _xml = parse_xml(arquivo,parametro).texto;
+      var exit = _.merge(_file, {texto : _xml});
       
       return exit;
 
@@ -170,10 +170,10 @@ var get_files = function (dir, parametro, parsed) {
   _.forEach(arquivos, function (file) {
     if (parametro.name) {
       if (parametro.name == file) {
-        parsed.push(get_file(dir + "/" + file, parametro.dados));
+        parsed.push(get_file(file, dir + "/" + file, parametro.dados));
       }
     }else{
-      parsed.push(get_file(dir + "/" + file, parametro));
+      parsed.push(get_file(file, dir + "/" + file, parametro));
     }
     
   });

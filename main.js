@@ -26,14 +26,17 @@ app.get('/', function(request, response) {
 app.get('/textos', function(request, response) {
   var correls = arquivos.read_dir('./correlacoes/', '/arquivos/correlacoes/');
   var correfs = arquivos.read_dir('./correferencias/', '/arquivos/correferencias/');
+  var concordancias = arquivos.texts("./kappas/");
 
-  var concordancias = {
-    
-  }
+  template={
+    correls:correls, 
+    correfs:correfs, 
+    concordancias : concordancias
+  };
 
-  response.render('textos.njk', {correls:correls, correfs:correfs});
+  response.render('textos.njk', template);
 });
 
 app.listen(app.get('port'), function() {
-   console.log('Node app is running on port', app.get('port'));
+   console.log('Application Runing on Port ', app.get('port'));
  });

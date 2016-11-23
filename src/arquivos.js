@@ -31,22 +31,18 @@ var read_dir = function(dir, exit_url){
     return _folders;
 }
 
-var get_texts = function(dir){
-    return parser.even_files('./correferencias/');
+var get_texts = function(exit_url){
+    evens = parser.even('./correferencias/')
+    exit = [];
+
+    for (var i = 0; i < evens.length; i+=2){
+        var file = evens[i];
+        var _url = exit_url + '/' + file;
+        exit.push({ name : file, url : _url });
+    }
+
+    return exit;
 }
-
-/*
-    Rotas antigas ... tão fora agora!
-app.get('/correlacoes', function(request, response) {
-    var _folders = read_dir('./correlacoes/', '/arquivos/correlacoes/');
-    response.render('correlacoes.njk', { folders : _folders });
-});
-
-app.get('/correferencias', function(request,response){
-    folders = read_dir('./correferencias/', '/arquivos/correferencias/');
-    response.render('correferencias.njk', { folders : _folders });
-});
-*/
 
 var app = express.Router();
 app.get('/correferencias/:folder/:file', function(request, response){
@@ -64,5 +60,18 @@ app.get('/correferencias/:folder/:file', function(request, response){
     });
 
 });
+
+/*
+    Rotas antigas ... tão fora agora!
+app.get('/correlacoes', function(request, response) {
+    var _folders = read_dir('./correlacoes/', '/arquivos/correlacoes/');
+    response.render('correlacoes.njk', { folders : _folders });
+});
+
+app.get('/correferencias', function(request,response){
+    folders = read_dir('./correferencias/', '/arquivos/correferencias/');
+    response.render('correferencias.njk', { folders : _folders });
+});
+*/
 
 module.exports = { router : app, read_dir : read_dir, texts : get_texts };
