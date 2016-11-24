@@ -1,3 +1,4 @@
+<!-- 
 <table class="ui table">
     <thead>
         <tr>
@@ -17,6 +18,7 @@
         </tr>
     </tbody>
 </table>
+-->
 
 <table class="ui table">
     <thead>
@@ -40,7 +42,7 @@
         <td>P(A)</td>
         <td>Consenso Total</td>
         <td>P(A)=Z/N</td>
-        <td>{{ kappa.pa }}</td>
+        <td>{{ kappa.pa | round(2) }}</td>
     </tr>
 
     <tr>
@@ -54,7 +56,7 @@
         <td>P(E)</td>
         <td>Consenso esperado por chance de anotação</td>
         <td>P(E)=((C1/NC)ˆ2) + ((C2/NC)ˆ2)</td>
-        <td>{{ kappa.pe }}</td>
+        <td>{{ kappa.pe | round(2) }}</td>
     </tr>
 
     <tr>
@@ -75,9 +77,15 @@
         <td>Kappa</td>
         <td>Coeficiente de consenso</td>
         <td>Kappa=(P(A)-P(E))/(1-P(E))</td>
-        <td>{{ kappa.roundValor }}</td>
+        <td>{{ kappa.valor | round(2)  }}</td>
     </tr>
 
     </tbody>
 
+    <tfoot>
+        <tr>
+            <td colspan="4">{% include "./interpretacao.njk" %}</td>
+        </tr>
+    </tfoot>
+    
 </table>

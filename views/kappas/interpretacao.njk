@@ -1,0 +1,33 @@
+    <!-- Values of Kappa	Interpretation
+        0	Sem concordância
+        0-0.19	Concordância fraca
+        0.20-0.39	Concordância razoável
+        0.40-0.59	Concordância moderada
+        0.60-0.79	Concordância substancial
+        0.80-1.00	Concordância quase perfeita ou perfeita
+    -->
+{% if kappa.valor == 0 %}
+    <div class="ui fluid red label">
+      <i class="percent icon"></i> Sem concordância <div class="detail"> {{ kappa.valor | round(2)  }} </div>
+    </div>
+{% elif kappa.valor > 0 and kappa.valor < 0.19 %}
+    <div class="ui fluid orange label">
+      <i class="percent icon"></i> Concordância fraca  <div class="detail"> {{ kappa.valor | round(2)  }} </div>
+    </div>
+{% elif kappa.valor > 0.20 and kappa.valor < 0.39  %}
+    <div class="ui fluid yellow label">
+      <i class="percent icon"></i>  Concordância razoável <div class="detail"> {{ kappa.valor | round(2)  }} </div>
+    </div>
+{% elif kappa.valor > 0.40 and kappa.valor < 0.59  %}
+    <div class="ui fluid olive label">
+      <i class="percent icon"></i>  Concordância moderada <div class="detail"> {{ kappa.valor | round(2)  }} </div>
+    </div>
+{% elif kappa.valor > 0.60 and kappa.valor < 0.79  %}
+    <div class="ui fluid green label">
+      <i class="percent icon"></i>  Concordância substancial <div class="detail"> {{ kappa.valor | round(2)  }} </div>
+    </div>
+{% else %}
+    <div class="ui fluid teal label">
+      <i class="percent icon"></i>  Concordância quase perfeita ou perfeita <div class="detail"> {{ kappa.valor | round(2)  }} </div>
+    </div>
+{% endif %}

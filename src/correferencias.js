@@ -31,7 +31,13 @@ function Arquivo(cadeias){
     }
 
     this.hasParEmCadeia = function(par){
-        return false;
+        var found = _.some(cadeias, function(arrays){
+            var b1 = arrays.indexOf(par[0]) != -1;
+            var b2 = arrays.indexOf(par[1]) != -1;
+            //return _.includes(arrays, par[0]) && _.includes(, par[1]);
+            return b1 && b2;
+        });
+        return found;
     }
 }
 
@@ -55,8 +61,6 @@ function Kappa(n, c){
     // coeficiente de consenso	Kappa=(P(A)-P(E))/(1-P(E))
     this.valor = 0;
 
-    this.roundValor = 0;
-
     this.calcularKappa = function(concordancia){
         concordancia.gerarConcordancias();
 
@@ -65,18 +69,16 @@ function Kappa(n, c){
         this.ci1 = concordancia.c1;
         this.ci2 = concordancia.c2;
 
-        this.pa = this.z/this.n;
+        this.pa = (this.z/this.n);
         
         var i1=this.ci1 / this.nc;
         var i2= this.ci2 / this.nc;
 
         this.pe = math.pow(i1, 2) + math.pow(i2, 2);
         this.valor = (this.pa - this.pe) / (1 - this.pe);
-        
+
         if (isNaN(this.valor))
-            this.roundValor = 1;
-        else
-            this.roundValor = this.valor;
+            this.valor = 1;
     }
 }
 
@@ -87,7 +89,6 @@ function Par(sintagma1, sintagma2){
     this.c1 = 0;
     this.c2 = 0;
     this.s = 0;
-    this.roundS = 0;
 
     this.descricao = "";
 
@@ -106,7 +107,6 @@ function Par(sintagma1, sintagma2){
             }
         });
         this.s = (1/c*(c-1)) * (this.c1*(this.c1-1)+this.c2*(this.c2-1));
-        this.roundS = this.s.toFixed(2);
     }
 
     this.gerarDescricao = function(){

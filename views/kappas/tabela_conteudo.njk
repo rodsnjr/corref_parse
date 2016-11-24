@@ -13,14 +13,17 @@
             <td>{{ par.descricao }}</td>
             <td class="positive">{{ par.c1 }}</td>
             <td class="negative">{{ par.c2 }}</td>
-            <td> {{ par.roundS }}</td>
+            <td> {{ par.s | round(2) }}</td>
           </tr>
         {% endfor %}
-        <tr>
-          <td>De {{ kappa.n }}</td>
-          <td>{{ kappa.ci1 }}</td>
-          <td>{{ kappa.ci2 }}</td>
-          <td>{{ kappa.z }}</td>
-        </tr>
+        
       </tbody>
+      <tfoot>
+        <tr>
+          <th>De {{ kappa.n }}</th>
+          <th> {{ kappa.ci1 }}</th>
+          <th> {{ kappa.ci2 }}</th>
+          <th> {{ kappa.z }}</th>
+        </tr>
+      </tfoot>
 </table>
