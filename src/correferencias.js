@@ -7,6 +7,8 @@ var FastSet = require("collections/fast-set");
 var _ = require('lodash');
 var Set = require("collections/set");
 var parser = require('./parser');
+var linq = require('linq');
+var math = require('mathjs');
 
 /*
 
@@ -29,34 +31,52 @@ function Arquivo(cadeias){
     }
 
     this.hasParEmCadeia = function(par){
-
+        return false;
     }
 }
 
 function Kappa(n, c){
     // soma de cada classe
-    this.ci = 0;
-    // consenso entre os anotadores para cada relação	
-    // ex: S1=(1/(C*(C-1))) * (C1*(C1-1) + (C2*(C2-1))
-    this.si = 0;
-    // somatório de Si
+    this.ci1 = 0;
+    this.ci2 = 0;
+    // somatório de S para cada classe
     this.z = 0;
     // consenso total = Z/N
     this.pa = 0;
-    // número total de anotações (N*C)
-    this.nc = 0;
     // consendo esperado por chance de anotação
     // ((C1/NC)ˆ2) + ((C2/NC)ˆ2)
     this.pe = 0;
     // tamanho da amostra
-    this.n = 0;
+    this.n = n;
     // quantidade de anotadores
-    this.c = 0;
+    this.c = c;
+    // número total de anotações (N*C)
+    this.nc = this.n * this.c;
     // coeficiente de consenso	Kappa=(P(A)-P(E))/(1-P(E))
     this.valor = 0;
 
-    this.calcularKappa = function(concordancia){
+    this.roundValor = 0;
 
+    this.calcularKappa = function(concordancia){
+        concordancia.gerarConcordancias();
+
+        this.z = linq.from(concordancia.pares.toArray()).sum("$.s");
+
+        this.ci1 = concordancia.c1;
+        this.ci2 = concordancia.c2;
+
+        this.pa = this.z/this.n;
+        
+        var i1=this.ci1 / this.nc;
+        var i2= this.ci2 / this.nc;
+
+        this.pe = math.pow(i1, 2) + math.pow(i2, 2);
+        this.valor = (this.pa - this.pe) / (1 - this.pe);
+        
+        if (isNaN(this.valor))
+            this.roundValor = 1;
+        else
+            this.roundValor = this.valor;
     }
 }
 
@@ -66,6 +86,8 @@ function Par(sintagma1, sintagma2){
 
     this.c1 = 0;
     this.c2 = 0;
+    this.s = 0;
+    this.roundS = 0;
 
     this.descricao = "";
 
@@ -74,13 +96,17 @@ function Par(sintagma1, sintagma2){
     }
 
     this.concordancia = function(arquivos){
+        var par = this;
+        var c = arquivos.length;
         _.forEach(arquivos, function(arquivo){
-            if (arquivo.hasParEmCadeia(this.asArray())){
-                this.c1++;
+            if (arquivo.hasParEmCadeia(par.asArray())){
+                par.c1++;
             }else{
-                this.c2++;
+                par.c2++;
             }
-        })
+        });
+        this.s = (1/c*(c-1)) * (this.c1*(this.c1-1)+this.c2*(this.c2-1));
+        this.roundS = this.s.toFixed(2);
     }
 
     this.gerarDescricao = function(){
@@ -103,8 +129,9 @@ function Concordancia(arquivos){
     this.arquivos = arquivos;
     this.sintagmasEmCadeias = new Set();
     this.pares = new Set();
+    this.c1 = 0;
+    this.c2 = 0;
 
-    
     this.gerarSintagmasEmCadeias = function(){
         value = this.sintagmasEmCadeias;
 
@@ -130,9 +157,17 @@ function Concordancia(arquivos){
 
     // Implementar, pegar uma lista com cada par, e o numero de concordancia
     this.gerarConcordancias = function(){
-        _.forEach(this.pares, function(_par){
-            _par.concordancia(this.arquivos);
+        var arquivos = this.arquivos;
+        var c1 = 0;
+        var c2 = 0;
+        this.pares.forEach(function(_par){
+            _par.concordancia(arquivos);
+            c1+=_par.c1;
+            c2+=_par.c2;
         });
+
+        this.c1=c1;
+        this.c2=c2;
     }
     // Gera array com um pedaço dos pares pra desenhar na tela ...
     this.samplePares = function(size){
@@ -144,7 +179,7 @@ function Concordancia(arquivos){
     }
 
     this.tamanhoAmostra = function(){
-        return this.sintagmasEmCadeias.length;
+        return this.pares.length;
     }
 
     this.anotadores = function(){
@@ -180,7 +215,7 @@ var gerarConcordancias = function(nomeArquivo){
 }
 
 var gerarKappa = function(concordancia){
-    kappa = new Kappa(concordancia.tamanhoAmostra, concordancia.anotadores);
+    kappa = new Kappa(concordancia.tamanhoAmostra(), concordancia.anotadores());
     kappa.calcularKappa(concordancia);
 
     return kappa;

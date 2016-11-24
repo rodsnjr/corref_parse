@@ -1,5 +1,8 @@
 var express = require('express');
 var parser = require('./parser');
+var linq = require('linq');
+
+var Set = require("collections/set");
 
 var fs = require('fs');
 var _ = require('lodash');
@@ -31,6 +34,32 @@ var read_dir = function(dir, exit_url){
     return _folders;
 }
 
+var read_dir_files = function(dir){
+    var pastas = fs.readdirSync(dir);
+    var files = [];
+    _.forEach(pastas, function(pasta){
+        if (fs.lstatSync(dir + pasta).isDirectory()){
+            var arquivos = fs.readdirSync(dir + pasta);
+            _.forEach(arquivos, function(arquivo){
+                files.push(arquivo);
+            });
+        }else{
+            files.push(pasta);
+        }
+        
+    });
+    return files;
+}
+
+var get_texts = function(){
+    evens = new Set();
+    folders = read_dir_files('./correferencias/');
+    
+    evens.addEach(folders);
+
+    return evens.toArray();
+}
+/*  Tá com alguns problemas, descartado por enquanto
 var get_texts = function(exit_url){
     evens = parser.even('./correferencias/')
     exit = [];
@@ -43,6 +72,7 @@ var get_texts = function(exit_url){
 
     return exit;
 }
+*/
 
 var app = express.Router();
 app.get('/correferencias/:folder/:file', function(request, response){

@@ -1,5 +1,25 @@
 <table class="ui table">
     <thead>
+        <tr>
+            <th>Ci</th>
+            <th>Soma de cada classe</th>
+        </tr>
+        <tr>
+            <th class="positive"> C1 </th>
+            <th class="negative"> C2 </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td class="positive"> {{ kappa.ci1 }} </td>
+            <td class="negative"> {{ kappa.ci2 }} </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="ui table">
+    <thead>
     <tr>
         <th>Item</th>
         <th>Legenda</th>
@@ -8,20 +28,6 @@
     </tr>
     </thead>
     <tbody>
-
-    <tr>
-        <td>Ci</td>
-        <td>Soma de cada Classe</td>
-        <td></td>
-        <td>{{ kappa.ci }}</td>
-    </tr>
-
-    <tr>
-        <td>Si</td>
-        <td>Consenso entre os anotadores para cada relação</td>
-        <td>S1=(1/(C*(C-1))) * (C1*(C1-1) + (C2*(C2-1))</td>
-        <td>{{ kappa.si }}</td>
-    </tr>
 
     <tr>
         <td>Z</td>
@@ -69,7 +75,7 @@
         <td>Kappa</td>
         <td>Coeficiente de consenso</td>
         <td>Kappa=(P(A)-P(E))/(1-P(E))</td>
-        <td>{{ kappa.valor }}</td>
+        <td>{{ kappa.roundValor }}</td>
     </tr>
 
     </tbody>

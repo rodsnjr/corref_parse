@@ -4,9 +4,9 @@
     {% include "../arquivos/pastas_corref.njk" %}
 </div>
 
-<div class="twelve wide centered column">
+<div class="twelve wide column">
 
-    <h2 class="ui header">
+    <h2 class="ui center aligned fluid header">
         <i class="percent icon"></i>
         <div class="content">
             Concordâncias
@@ -17,11 +17,11 @@
         <div class="ui secondary pointing menu concordancias">
         {% for concordancia in concordancias %}
             {% if loop.first %}
-            <a class="active item" data-tab="{{ concordancia.name }}">
+            <a class="active item" data-tab="{{ concordancia }}">
                 Concordância 1
             </a>
             {% else %}
-            <a class="item" data-tab="{{ concordancia.name }}">
+            <a class="item" data-tab="{{ concordancia }}">
                 Concordância {{ loop.index }}
             </a>
             {% endif %}
@@ -29,13 +29,11 @@
         </div>
         {% for concordancia in concordancias %}
             {% if loop.first %}
-                <div id="{{ concordancia.name }}" class="ui active tab" data-tab="{{ concordancia.name }}">
+                <div id="{{ concordancia }}" class="ui active tab" data-tab="{{ concordancia }}"> 
                     {% include "./kappa.njk" %}
                 </div>
             {% else %}
-                <div id="{{ concordancia.name }}" class="ui tab" data-tab="{{ concordancia.name }}">
-                    
-                </div>
+                <div id="{{ concordancia }}" class="ui tab" data-tab="{{ concordancia }}"></div>
             {% endif %}
         {% endfor %}
     {% else %}

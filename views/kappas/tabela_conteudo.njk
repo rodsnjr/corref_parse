@@ -4,17 +4,23 @@
           <th>Sentença</th>
           <th>C1</th>
           <th>C2</th>
-          <!-- <th>S</th> -->
+          <th>S</th>
         </tr>
       </thead>
       <tbody>
         {% for par in pares %}
           <tr>
             <td>{{ par.descricao }}</td>
-            <td>{{ par.c1 }}</td>
-            <td>{{ par.c2 }}</td>
-            <!-- <td>0,0</td> -->
+            <td class="positive">{{ par.c1 }}</td>
+            <td class="negative">{{ par.c2 }}</td>
+            <td> {{ par.roundS }}</td>
           </tr>
         {% endfor %}
+        <tr>
+          <td>De {{ kappa.n }}</td>
+          <td>{{ kappa.ci1 }}</td>
+          <td>{{ kappa.ci2 }}</td>
+          <td>{{ kappa.z }}</td>
+        </tr>
       </tbody>
 </table>

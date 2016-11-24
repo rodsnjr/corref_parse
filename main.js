@@ -28,7 +28,7 @@ app.get('/textos', function(request, response) {
   var correfs = arquivos.read_dir('./correferencias/', '/arquivos/correferencias/');
   var concordancias = arquivos.texts("./kappas/");
   
-  var _kappas = kappas.kappaCorref(concordancias[0].name);
+  var _kappas = kappas.kappaCorref(concordancias[0]);
 
   template={
       correls:correls, 
