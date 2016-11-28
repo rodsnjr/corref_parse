@@ -5,43 +5,52 @@
 </div>
 
 <div class="twelve wide column">
-
-    <h2 class="ui center aligned fluid header">
-        <i class="percent icon"></i>
-        <div class="content">
-            Concordâncias
-            <div class="sub header">Inclui o cálculo do Kappa das concordâncias</div>
-        </div>
-    </h2>
-    {% if concordancias %}
-        <div class="ui secondary pointing menu concordancias">
-        {% for concordancia in concordancias %}
-            {% if loop.first %}
-            <a class="active item" data-tab="{{ concordancia }}">
-                Concordância 1
-            </a>
-            {% else %}
-            <a class="item" data-tab="{{ concordancia }}">
-                Concordância {{ loop.index }}
-            </a>
-            {% endif %}
-        {% endfor %}
-        </div>
-        {% for concordancia in concordancias %}
-            {% if loop.first %}
-                <div id="{{ concordancia }}" class="ui active tab" data-tab="{{ concordancia }}"> 
-                    {% include "./kappa.njk" %}
+        {% if erro %}
+            <div class="ui negative message">
+                <div class="header">
+                    Ocorreu um erro
                 </div>
-            {% else %}
-                <div id="{{ concordancia }}" class="ui tab" data-tab="{{ concordancia }}"></div>
-            {% endif %}
-        {% endfor %}
-    {% else %}
-        <div class="ui negative message">
-            <div class="header">
-                Ops!
+                <p>{{ erro }}</p>
             </div>
-            <p>Ainda não há arquivos diferentes de um mesmo texto para gerar as concordâncias</p>
-        </div>
+        {% else %}
+            <h2 class="ui center aligned fluid header">
+                <i class="percent icon"></i>
+                <div class="content">
+                    Concordâncias
+                    <div class="sub header">Inclui o cálculo do Kappa das concordâncias</div>
+                </div>
+            </h2>
+            {% if concordancias %}
+                <div class="ui secondary pointing menu concordancias">
+                {% for concordancia in concordancias %}
+                    {% if loop.first %}
+                    <a class="active item" data-tab="{{ concordancia }}">
+                        Concordância 1
+                    </a>
+                    {% else %}
+                    <a class="item" data-tab="{{ concordancia }}">
+                        Concordância {{ loop.index }}
+                    </a>
+                    {% endif %}
+                {% endfor %}
+                </div>
+                {% for concordancia in concordancias %}
+                    {% if loop.first %}
+                        <div id="{{ concordancia }}" class="ui active tab" data-tab="{{ concordancia }}"> 
+                            {% include "./kappa.njk" %}
+                        </div>
+                    {% else %}
+                        <div id="{{ concordancia }}" class="ui tab" data-tab="{{ concordancia }}"></div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <div class="ui negative message">
+                    <div class="header">
+                        Ops!
+                    </div>
+                    <p>Ainda não há arquivos diferentes de um mesmo texto para gerar as concordâncias</p>
+                </div>
+            {% endif %}
+
     {% endif %}
 </div>
