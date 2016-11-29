@@ -71,7 +71,7 @@ function Kappa(n, c){
 
         this.pa = (this.z/this.n);
         
-        var i1=this.ci1 / this.nc;
+        var i1= this.ci1 / this.nc;
         var i2= this.ci2 / this.nc;
 
         this.pe = math.pow(i1, 2) + math.pow(i2, 2);
@@ -106,11 +106,11 @@ function Par(sintagma1, sintagma2){
                 par.c2++;
             }
         });
-        this.s = (1/c*(c-1)) * (this.c1*(this.c1-1)+this.c2*(this.c2-1));
+        this.s = (1/(c*(c-1))) * (this.c1*(this.c1-1)+this.c2*(this.c2-1));
     }
 
     this.gerarDescricao = function(){
-        this.descricao = "Par: (" +this.sintagma1 + " - " + this.sintagma2 + ")";
+        this.descricao = "Par: (" +this.sintagma1 + " - " + this.sintagma2 + ")";        
     }
 }
 
