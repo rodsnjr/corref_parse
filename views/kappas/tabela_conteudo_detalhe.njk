@@ -1,0 +1,20 @@
+<table class="ui table">
+      <thead>
+        <tr>
+          <th>Sentença</th>
+          <th>C1</th>
+          <th>C2</th>
+          <th>S</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for divergente in divergentes %}
+          <tr>
+            <td>{{ divergente.descricao }}</td>
+            <td class="positive">{{ divergente.c1 }}</td>
+            <td class="negative">{{ divergente.c2 }}</td>
+            <td> {{ divergente.s | round(2) }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+</table>

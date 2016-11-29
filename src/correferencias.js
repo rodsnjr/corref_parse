@@ -134,9 +134,11 @@ Par.prototype.equals = function(o){
 };
 
 function Concordancia(arquivos){
+    /*
     if (arquivos.length % 2 != 0){
         throw "Impossível fazer concordância de Qtd's impares de anotadores"
     }
+    */
     this.arquivos = arquivos;
     this.sintagmasEmCadeias = new Set();
     this.pares = new Set();
@@ -192,7 +194,7 @@ function Concordancia(arquivos){
 
     this.getDivergentes = function(){
         var pares = this.pares.toArray();
-        var divergentes = linq.from(pares).where(function(par){ return par.c1 != 0 || par.c2 != 0; });
+        var divergentes = linq.from(pares).where("$.c1 != 0 && $.c1 != " + this.arquivos.length);
         return divergentes;
     }
 
@@ -215,11 +217,12 @@ function Concordancia(arquivos){
         return this.arquivos.length;
     }
 
-    this.toCSV = function(){
-        var _pares = [];
+    this.toParesString = function(){
+        var _pares = "";
         this.pares.forEach(function(value){
-            _pares.add(value.toString());
-        })
+            //_pares.add(value.toString());
+            _pares+=value.toString()+"\n";
+        });
 
         return _pares;
     }

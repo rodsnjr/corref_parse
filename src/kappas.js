@@ -13,10 +13,22 @@ var gerarKappa = function(arquivo){
     return { concordancia : arquivo, kappa : _kappa, pares : _pares};
 }
 
+var gerarCSV = function(arquivo){
+    var concordancia = correferencias
+        .concordancia(arquivo);
+    return concordancia.toParesString();
+}
+
 app.get('/correferencias/:arquivo', function(request, response){
-    //response.render('kappa.njk', { kappas : saida });
     var template = gerarKappa(request.params.arquivo);
     response.render('./tabs/kappa.njk', template);
 });
+
+app.get('/correferencias/:arquivo/csv', function(request, response){
+    var arquivo = gerarCSV(request.params.arquivo);
+    response.send(arquivo);
+    //response.render('./tabs/kappa.njk', template);
+});
+
 
 module.exports = { router : app, kappaCorref : gerarKappa };

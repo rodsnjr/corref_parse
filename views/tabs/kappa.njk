@@ -5,10 +5,33 @@
     {% include "../kappas/tabela_conteudo.njk" %}
     <div class="ui horizontal divider">Divergencias</div>
     {% include "../kappas/tabela_divergentes.njk" %}
-    <div class="ui button">Baixar em CSV</div>
+    <div class="ui two buttons">
+      <div class="ui button detalhe">Detalhe</div>
+      <a class="ui button" href="/correferencias/{{ concordancia }}/csv">Baixar em CSV</a>
+    </div>
+    
   </div>
 
   <div class="column">
     {% include "../kappas/tabela_kappa.njk" %}
   </div>
 </div>
+
+<div class="ui modal">
+  <div class="header">Detalhe das Divergencias</div>
+  <div class="content">
+    {% include "../kappas/tabela_conteudo_detalhe.njk" %}
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+
+  $('.button.detalhe').click(function(){
+    
+    $('.ui.modal').modal('show');
+  
+  });
+
+});
+</script>
