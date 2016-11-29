@@ -32,10 +32,12 @@ function Arquivo(cadeias){
 
     this.hasParEmCadeia = function(par){
         var found = _.some(cadeias, function(arrays){
-            var b1 = arrays.indexOf(par[0]) != -1;
-            var b2 = arrays.indexOf(par[1]) != -1;
-            //return _.includes(arrays, par[0]) && _.includes(, par[1]);
-            return b1 && b2;
+            // Sem Lodash
+            //var b1 = arrays.indexOf(par[0]) != -1;
+            //var b2 = arrays.indexOf(par[1]) != -1;
+            //return b1 && b2;
+            
+            return _.includes(arrays, par[0]) && _.includes(arrays, par[1]);
         });
         return found;
     }
@@ -106,7 +108,11 @@ function Par(sintagma1, sintagma2){
                 par.c2++;
             }
         });
+<<<<<<< HEAD
         this.s = (1/(c*(c-1))) * (this.c1*(this.c1-1)+this.c2*(this.c2-1));
+=======
+        this.s = (1/c*(c-1)) * (this.c1*(this.c1-1) + this.c2*(this.c2-1));
+>>>>>>> 240a7fa54c8925a6d932a7e42fe541b6f15d6db5
     }
 
     this.gerarDescricao = function(){
@@ -126,6 +132,9 @@ Par.prototype.equals = function(o){
 };
 
 function Concordancia(arquivos){
+    if (arquivos.length % 2 != 0){
+        throw "Impossível fazer concordância de Qtd's impares de anotadores"
+    }
     this.arquivos = arquivos;
     this.sintagmasEmCadeias = new Set();
     this.pares = new Set();

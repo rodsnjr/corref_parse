@@ -28,17 +28,29 @@ app.get('/textos', function(request, response) {
   var correfs = arquivos.read_dir('./correferencias/', '/arquivos/correferencias/');
   var concordancias = arquivos.texts("./kappas/");
   
-  var _kappas = kappas.kappaCorref(concordancias[0]);
+  try {
+    var _kappas = kappas.kappaCorref(concordancias[0]);
 
-  template={
-      correls:correls, 
-      correfs:correfs, 
-      concordancias : concordancias,
-      kappa : _kappas.kappa, 
-      pares : _kappas.pares
-  };
+      template={
+        correls:correls, 
+        correfs:correfs, 
+        concordancias : concordancias,
+        kappa : _kappas.kappa, 
+        pares : _kappas.pares
+      };
 
-  response.render('textos.njk', template);
+    response.render('textos.njk', template);
+    
+  } catch (e){
+     template={
+        correls:correls, 
+        correfs:correfs, 
+        erro : e
+     }
+     response.render('textos.njk', template);
+  }  
+
+
 });
 
 app.listen(app.get('port'), function() {
