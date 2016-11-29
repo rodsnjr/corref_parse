@@ -114,11 +114,12 @@ function Par(sintagma1, sintagma2){
     }
 
     this.gerarDescricao = function(){
-        this.descricao = "Par: (" +this.sintagma1 + " - " + this.sintagma2 + ")";        
+        this.descricao = "Par: (" +this.sintagma1 + " - " + this.sintagma2 + ")";
+        return descricao;      
     }
 
     this.toString = function(){
-        return this.descricao + ";" + this.c1 + ";" + this.c2 + ";" + this.s;
+        return this.gerarDescricao() + ";" + this.c1 + ";" + this.c2 + ";" + this.s;
     }
 }
 
