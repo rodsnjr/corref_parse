@@ -109,13 +109,19 @@ var get_conteudo = function (result, conteudo) {
 var parse_xml = function (arquivo, parametro) {
   parsed = {};
   parser.parseString(arquivo, function (err, result) {
-    if (typeof parametro == 'string') {
-      parsed = get_conteudo(result, parametro);
-    } else {
-      _.forEach(parametro, function (value) {
-        parsed[value] = get_conteudo(result, value);
-      });
+
+    if (result){
+      if (typeof parametro == 'string') {
+        parsed = get_conteudo(result, parametro);
+      } else {
+        _.forEach(parametro, function (value) {
+          parsed[value] = get_conteudo(result, value);
+        });
+      }
+    }else if (err){
+      throw err;
     }
+
   });
   return parsed;
 }

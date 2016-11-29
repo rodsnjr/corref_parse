@@ -108,11 +108,9 @@ function Par(sintagma1, sintagma2){
                 par.c2++;
             }
         });
-<<<<<<< HEAD
         this.s = (1/(c*(c-1))) * (this.c1*(this.c1-1)+this.c2*(this.c2-1));
-=======
-        this.s = (1/c*(c-1)) * (this.c1*(this.c1-1) + this.c2*(this.c2-1));
->>>>>>> 240a7fa54c8925a6d932a7e42fe541b6f15d6db5
+        //this.s = (1/c*(c-1)) * (this.c1*(this.c1-1) + this.c2*(this.c2-1));
+
     }
 
     this.gerarDescricao = function(){
