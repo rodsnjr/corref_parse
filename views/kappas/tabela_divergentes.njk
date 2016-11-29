@@ -8,10 +8,12 @@
     </thead>
 
     <tbody>
+        {% for divergencia in divergencias %}
         <tr>
-            <td class="positive"> {{ divergentes.c1 }} </td>
-            <td class="negative"> {{ divergentes.c2 }} </td>
-            <td>{{ divergentes.total }}</td>
+            <td class="positive"> {{ divergencia.c1 }} </td>
+            <td class="negative"> {{ divergencia.c2 }} </td>
+            <td>{{ divergencia.total }}</td>
         </tr>
+        {% endfor %}
     </tbody>
 </table>

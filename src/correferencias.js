@@ -118,7 +118,7 @@ function Par(sintagma1, sintagma2){
     }
 
     this.toString = function(){
-        return this.c1 + ";" + this.c2 + ";" + this.s;
+        return this.descricao + ";" + this.c1 + ";" + this.c2 + ";" + this.s;
     }
 }
 
@@ -194,19 +194,19 @@ function Concordancia(arquivos){
 
     this.getDivergentes = function(){
         var pares = this.pares.toArray();
-        var divergentes = linq.from(pares).where("$.c1 != 0 && $.c1 != " + this.arquivos.length);
+        var divergentes = linq.from(pares).where("$.c1 != 0 && $.c1 != " + this.arquivos.length).toArray();
         return divergentes;
     }
 
     this.qtdDivergentes = function(){
         var pares = this.pares.toArray();
-        var qtds = [];
+        var _qtds = [];
         for (var i = 1; i < this.arquivos.length; i++){
             var qtds = linq.from(pares).count("$.c1 == " + i);
             var legenda = { c1 : i, c2 : this.arquivos.length - i, total : qtds};
-            qtds.push();
+            _qtds.push(legenda);
         }
-        return qtds;
+        return _qtds;
     }
 
     this.tamanhoAmostra = function(){
