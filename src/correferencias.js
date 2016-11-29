@@ -195,6 +195,9 @@ function Concordancia(arquivos){
     this.getDivergentes = function(){
         var pares = this.pares.toArray();
         var divergentes = linq.from(pares).where("$.c1 != 0 && $.c1 != " + this.arquivos.length).toArray();
+        _.forEach(divergentes, function(divergente){
+            divergente.gerarDescricao();
+        });
         return divergentes;
     }
 
