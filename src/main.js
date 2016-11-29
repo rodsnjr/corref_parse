@@ -1,8 +1,8 @@
 var express = require('express');
 var nunjucks = require('nunjucks');
-var arquivos = require('./src/arquivos');	
-var parser = require('./src/parser');
-var kappas = require('./src/kappas');
+var arquivos = require('./arquivos');	
+var parser = require('./parser');
+var kappas = require('./kappas');
 
 var app = express();
 
