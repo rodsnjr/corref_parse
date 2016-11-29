@@ -30,13 +30,15 @@ app.get('/textos', function(request, response) {
   
   try {
     var _kappas = kappas.kappaCorref(concordancias[0]);
+    var _divergentes = concordancias[0].qtdDivergentes();
 
       template={
         correls:correls, 
         correfs:correfs, 
         concordancias : concordancias,
         kappa : _kappas.kappa, 
-        pares : _kappas.pares
+        pares : _kappas.pares,
+        divergentes : _divergentes
       };
 
     response.render('textos.njk', template);

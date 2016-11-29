@@ -116,6 +116,10 @@ function Par(sintagma1, sintagma2){
     this.gerarDescricao = function(){
         this.descricao = "Par: (" +this.sintagma1 + " - " + this.sintagma2 + ")";        
     }
+
+    this.toString = function(){
+        return this.c1 + ";" + this.c2 + ";" + this.s;
+    }
 }
 
 Par.prototype.equals = function(o){
@@ -176,6 +180,7 @@ function Concordancia(arquivos){
         this.c1=c1;
         this.c2=c2;
     }
+
     // Gera array com um pedaço dos pares pra desenhar na tela ...
     this.samplePares = function(size){
         saida = _.slice(this.pares.toArray(), 0, size);
@@ -185,12 +190,38 @@ function Concordancia(arquivos){
         return saida;
     }
 
+    this.getDivergentes = function(){
+        var pares = this.pares.toArray();
+        var divergentes = linq.from(pares).where(function(par){ return par.c1 != 0 || par.c2 != 0; });
+        return divergentes;
+    }
+
+    this.qtdDivergentes = function(){
+        var pares = this.pares.toArray();
+        var qtds = [];
+        for (var i = 1; i < this.arquivos.length; i++){
+            var qtds = linq.from(pares).count("$.c1 == " + i);
+            var legenda = { c1 : i, c2 : this.arquivos.length - i, total : qtds};
+            qtds.push();
+        }
+        return qtds;
+    }
+
     this.tamanhoAmostra = function(){
         return this.pares.length;
     }
 
     this.anotadores = function(){
         return this.arquivos.length;
+    }
+
+    this.toCSV = function(){
+        var _pares = [];
+        this.pares.forEach(function(value){
+            _pares.add(value.toString());
+        })
+
+        return _pares;
     }
 
     this.gerarSintagmasEmCadeias();
